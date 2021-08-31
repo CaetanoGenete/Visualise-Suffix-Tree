@@ -5,6 +5,45 @@
         <title>Visualisation of Ukkonen's algorithm</title> 
     </head>
     <body>
-        
+        <header id = "header">
+            <input type = "text" id = "header__build-string"/>
+            <input type = "button" value="Build" onclick="init_tree()"/>
+            
+            <h1>Visualisation of Ukkonen's algorithm</h1>
+        </header>
+
+        <div id = "info">
+            <div id = "info__control-panel">
+                <input type = "button" id = "control-panel__next-step"/>
+                <input type = "button" id = "control-panel__prev-step"/>
+
+                <div id = "control-panel__variables">
+                    <div id = "variables__active-point">
+                        <div id = "active-point__names">
+                            <h4>Active node: </h4>
+                            <h4>Active edge: </h4>
+                            <h4>Active length: </h4>
+                        <div>
+                        <div id = "active-point__values">
+                            <h4>0</h4>
+                            <h4>none</h4>
+                            <h4>0</h4>
+                        <div>
+                    </div>
+                    <div id = "variables__position">
+                        <div id = "position__names">
+                            <h4>Remainder: </h4>
+                            <h4>Step: </h4>
+                        <div>
+                        <div id = "position__values">
+                            <h4>0</h4>
+                            <h4>0</h4>
+                        <div>
+                    </div>
+                </div>
+            </div>
+            <div id = "info__char-boxes"></div>
+        </div>
+        <div id = "suffix-tree"></div>
     </body>
 </html>
