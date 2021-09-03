@@ -19,6 +19,7 @@
 /*Header styling*/
 #header {
     position: fixed;
+    z-index: 1;
     top: 0px;
     left: -10px;
 
@@ -87,8 +88,9 @@
 /*Info box styling*/
 
 #info {
-    position: fixed;
     box-sizing: border-box;
+    position: fixed;
+    z-index: 1;
 
     /*Positioning*/
     top: 120px;
@@ -101,7 +103,7 @@
     border: 1px solid darkgray;
     border-radius: 10px;
 
-    background-color: rgb(247, 241, 247);
+    background-color: #f7f1f7;
 
     -webkit-box-shadow: 0 8px 10px -6px black;
     -moz-box-shadow: 0 8px 10px -6px black;
