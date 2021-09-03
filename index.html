@@ -10,13 +10,15 @@
         <link rel="stylesheet" href="css/index.css"/>
 
         <!--javascript files-->
+        <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+        <script type="text/javascript" src = "javascript/DrawTree.js"></script>
 
     </head>
     <body>
         <header id = "header">
             <div id = "header__input-div">
-                <input type = "text" placeholder = "Input string to build suffix tree..."/>
-                <button class = "button">BUILD</button>
+                <input type = "text" placeholder = "Input string to build suffix tree..." id = "input_text"/>
+                <button class = "button" onclick = "init()">BUILD</button>
             </div>
             <h1>Visualisation of Ukkonen's algorithm</h1>
         </header>
@@ -57,6 +59,7 @@
             </div>
             <div id = "info__char-boxes"></div>
         </div>
-        <div id = "suffix-tree"></div>
+
+        <div id = "suffix-tree">Testing</div>
     </body>
 </html>
