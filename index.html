@@ -3,47 +3,64 @@
     <head>
         <meta charset="UTF-8"/>
         <title>Visualisation of Ukkonen's algorithm</title> 
+
+        <!--css files-->
+        <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet'/>
+        <link rel="stylesheet" href="css/global.css"/>
+        <link rel="stylesheet" href="css/index.css"/>
+
+        <!--javascript files-->
+        <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+        <script type="text/javascript" src = "javascript/DrawTree.js"></script>
+        <script type="text/javascript" src = "javascript/Ukonnen.js"></script>
+
     </head>
     <body>
         <header id = "header">
-            <input type = "text" id = "header__build-string"/>
-            <input type = "button" value="Build" onclick="init_tree()"/>
-            
+            <div id = "header__input-div">
+                <input type = "text" placeholder = "Input string to build suffix tree..." id = "input_text"/>
+                <button class = "button" onclick = "load_string()">BUILD</button>
+            </div>
             <h1>Visualisation of Ukkonen's algorithm</h1>
         </header>
 
         <div id = "info">
             <div id = "info__control-panel">
-                <input type = "button" id = "control-panel__next-step"/>
-                <input type = "button" id = "control-panel__prev-step"/>
-
+                <div id = "control-panel__header">
+                    <button class = "button"><div>&#60</div></button>
+                    <h2>Data Panel</h2>
+                    <button class = "button" onclick = "add_character()"><div>&#62</div></button>
+                </div>
                 <div id = "control-panel__variables">
-                    <div id = "variables__active-point">
-                        <div id = "active-point__names">
+                    <h3 class = "gradient-underline">Active point</h3>
+                    <div class = "variables__table">
+                        <div class = "active-point__column">
                             <h4>Active node: </h4>
                             <h4>Active edge: </h4>
                             <h4>Active length: </h4>
-                        <div>
-                        <div id = "active-point__values">
-                            <h4>0</h4>
+                        </div>
+                        <div class = "active-point__column" id = "active-point-data">
+                            <h4 style = "color: red;">0</h4>
                             <h4>none</h4>
-                            <h4>0</h4>
-                        <div>
+                            <h4 style = "color: orange;">0</h4>
+                        </div>
                     </div>
-                    <div id = "variables__position">
-                        <div id = "position__names">
+                    <h3 class = "gradient-underline">Position</h3>
+                    <div class = "variables__table">
+                        <div class = "active-point__column">
                             <h4>Remainder: </h4>
                             <h4>Step: </h4>
-                        <div>
-                        <div id = "position__values">
-                            <h4>0</h4>
-                            <h4>0</h4>
-                        <div>
+                        </div>
+                        <div class = "active-point__column" id = "variables-data">
+                            <h4 style = "color: greenyellow;">0</h4>
+                            <h4 style = "color: green;">0</h4>
+                        </div>
                     </div>
                 </div>
             </div>
             <div id = "info__char-boxes"></div>
         </div>
-        <div id = "suffix-tree"></div>
+
+        <div id = "suffix-tree">Testing</div>
     </body>
 </html>
