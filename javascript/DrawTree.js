@@ -1,7 +1,11 @@
 var network = null;
 
-var nodes = [];
-var edges = [];
+var full_string = "";
+var string_index = 0;
+
+var nodes = new vis.DataSet();
+var edges = new vis.DataSet();
+
 
 function init() {
     var input = document.getElementById("input_text");
@@ -9,67 +13,42 @@ function init() {
     console.log(input.value);
 }
 
-window.addEventListener("load", () => {
-    var container = document.getElementById("suffix-tree");
+function load_string() {
+    container = document.getElementById("info__char-boxes");
+    text_box = document.getElementById("input_text");
 
-    for (var i = 0; i < 15; i++) {
-        nodes.push({ id: i, label: String(i) });
+    while(container.firstChild) {
+        container.removeChild(container.firstChild);
     }
 
-    edges.push({ from: 0, to: 1 });
-    edges.push({ from: 0, to: 6 });
-    edges.push({ from: 0, to: 13 });
-    edges.push({ from: 0, to: 11 });
-    edges.push({ from: 1, to: 2 });
-    edges.push({ from: 2, to: 3 });
-    edges.push({ from: 2, to: 4 });
-    edges.push({ from: 3, to: 5 });
-    edges.push({ from: 1, to: 10 });
-    edges.push({ from: 1, to: 7 });
-    edges.push({ from: 2, to: 8 });
-    edges.push({ from: 2, to: 9 });
-    edges.push({ from: 3, to: 14 });
-    edges.push({ from: 1, to: 12 });
+    //Reset string and index
+    full_string = text_box.value;
+    string_index = 0;
 
-    nodes[0]["level"] = 0;
-    nodes[1]["level"] = 1;
-    nodes[2]["level"] = 3;
-    nodes[3]["level"] = 4;
-    nodes[4]["level"] = 4;
-    nodes[5]["level"] = 5;
-    nodes[6]["level"] = 1;
-    nodes[7]["level"] = 2;
-    nodes[8]["level"] = 4;
-    nodes[9]["level"] = 4;
-    nodes[10]["level"] = 2;
-    nodes[11]["level"] = 1;
-    nodes[12]["level"] = 2;
-    nodes[13]["level"] = 1;
-    nodes[14]["level"] = 5;
+    for(character in text_box.value) {
+        outer_box = document.createElement("div");
+        inner_box = document.createElement("div");
+        display_char = document.createElement("h3");
 
-    var options = {
-        nodes: {
-            fixed: {x:true, y:true},
-            shape: "circle",
-            color: "#8a2be2",
-            font: {
-                color: "#f5f5f5",
-                face: "Quicksand"
-            }
-        },
-        layout: {
-            hierarchical: {
-              direction: "LR",
-            },
-        },
-        physics: false
+        inner_box.style.animationDelay = String(character * 0.05) + "s";
+
+        display_char.innerHTML = text_box.value[character];
+
+        inner_box.appendChild(display_char);
+        outer_box.appendChild(inner_box);
+        outer_box.classList.add("char-box"); 
+
+        container.appendChild(outer_box);
     }
+    
+    delete tree;
+    tree = new Tree();
+}
 
-    var data = {
-        nodes: nodes,
-        edges: edges
+function add_character() {
+    if(string_index < full_string.length) {
+        next_char = full_string[string_index];
+
+        string_index = tree.add_character(next_char);
     }
-
-    network = new vis.Network(container, data, options);
-
-});
+}

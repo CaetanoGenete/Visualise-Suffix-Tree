@@ -92,9 +92,18 @@
     position: fixed;
     z-index: 1;
 
+    width: 100%;
+    padding: 20px;
+    
     /*Positioning*/
-    top: 120px;
-    left: 20px;
+    top: 100px;
+
+    pointer-events: none;
+
+}
+
+#info__control-panel {
+    float:left;
 
     /*Dimensions*/
     width: 300px;
@@ -108,9 +117,12 @@
     -webkit-box-shadow: 0 8px 10px -6px black;
     -moz-box-shadow: 0 8px 10px -6px black;
          box-shadow: 0 8px 10px -6px black;
+
+    pointer-events: auto;
+
 }
 
-#info h3 {
+#info__control-panel h3 {
     margin: 5px 0;
 
     text-align: center;
@@ -197,6 +209,88 @@
 
 #control-panel__variables {
     padding: 20px;
+}
+
+/*Char boxes*/
+#info__char-boxes {
+    box-sizing: border-box;
+
+    display: block;
+    background-color: blue;
+
+    box-sizing: border-box;
+
+    margin-left: 300px;
+}
+
+.char-box {
+
+    display: flex;
+    float:left;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 50px;
+    height: 50px;
+
+    margin-left: 20px;
+    margin-bottom: 20px;
+
+    pointer-events: auto;
+}
+
+.char-box div {
+    background: #f7f1f7;
+    text-align: center;
+
+    height: 50px;
+    width: 0px;
+    line-height: 50px;
+
+    border-radius: 10px;
+    
+    overflow: hidden;
+    
+    animation: show_box ease-in-out 0.5s;
+    animation-fill-mode: forwards;
+
+    -webkit-box-shadow: 0 8px 10px -6px black;
+    -moz-box-shadow: 0 8px 10px -6px black;
+         box-shadow: 0 8px 10px -6px black;
+
+}
+
+@keyframes show_box {
+    0% {
+        width: 0%;
+        border-radius: 0px;
+        border-left: 2px solid rgb(197, 197, 197);
+        border-right: 2px solid rgb(197, 197, 197)
+    }
+
+    100% {
+        width: 100%;
+        border-radius: 10px;
+        border-left: 1px solid whitesmoke;
+        border-right: 1px solid whitesmoke;
+    }
+}
+
+@keyframes delete_box {
+    0% {
+        width: 100%;
+        border-radius: 10px;
+        border-left: 1px solid whitesmoke;
+        border-right: 1px solid whitesmoke;
+    }
+    100% {
+        width: 0%;
+        border-radius: 0px;
+        border-left: 2px solid gray;
+        border-right: 2px solid gray;
+    }
+
 }
 
 /*Suffix Tree*/
