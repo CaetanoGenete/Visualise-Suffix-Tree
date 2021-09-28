@@ -1,48 +1,87 @@
 const default_node_colour = "#8a2be2";
 
+//Horizontal grid seperation of nodes
+const x_node_seperation = 200;
+//Vertical grid seperation of nodes
+const y_node_sepereation = 50;
+
 tree = null;
 
-function node(start, end = Number.MAX_SAFE_INTEGER) {
+//Not constructor function
+function node(parent, start, end = Number.MAX_SAFE_INTEGER) {
+    //Substring ends: [start, end)
     this.start = start;
     this.end = end;
-    this.slink = 0;
 
+    //suffix link
+    this.slink = 0;
+    //Parent (Aids branch seperation)
+    this.parent = parent;
+
+    //Children (Leaf node => edge.size() === 1)
     this.edge = new Map();
 }
 
 class Tree {
     #nodes = [];
 
+    //Active point
+    /**@private @ */
     #active_node = 0;
     #active_edge = 0;
     #active_len = 0;
 
+    //Next node that needs a suffix link
     #to_link = 0;
 
     #remainder = 0;
     #step = 0;
+
     #string = "";
 
+    /**
+     * Insert new leaf node to input root, with edge represeting substring of class attribute "string". 
+     * 
+     * @access private
+     * @param {number} root Node from which to insert edge
+     * @param {number} start Start index of substring
+     * @param {number} end End index of substring ("string" length by default)
+     * 
+     * @returns {number} ID of newly created leaf node.
+     */
     #add_node(root, start, end = Number.MAX_SAFE_INTEGER) {
         var node_index = this.#nodes.length;
-        var level = 0;
 
-        if(root != null)
-            level = nodes.get(root)["level"] + 1;
-
+        //Add node to visjs graph
         nodes.add({
             id: node_index, 
             label: String(node_index),
-            level: level
+            x: 0, y: 0
+            //level: level
         });
 
-        var leaf = new node(start, end);
+        //Create new leaf and set edge
+        var leaf = new node(root, start, end);
         leaf.edge.set(0, node_index);
         this.#nodes.push(leaf);
 
         return node_index;
     }
 
+    /**
+     * Returns ID of the input <i>root</i>'s child node, with edge substring starting with input <i>char</i>. Note:
+     * Starting character of all edges with common root must be distinct.
+     * 
+     * If no such node exists then 0 is returned, signalling an error.
+     * 
+     * @method
+     * @private
+     *    
+     * @param {number} root 
+     * @param {String} char  
+     * 
+     * @returns {number} See description above.
+     */
     #get_edge_index(root, char) {
         if(this.#nodes[root].edge.get(char) != null)
             return this.#nodes[root].edge.get(char);
@@ -50,14 +89,43 @@ class Tree {
             return 0;
     }
 
+    /**
+     * Returns <i>root</i>'s child node as an object, with edge substring starting with input <i>char</i>. Note:
+     * Starting character of all edges with common root must be distinct.
+     * 
+     * If no such node exists then the root node is returned, signalling an error.   
+     * 
+     * @method
+     * @private
+     * 
+     * @param {number} root 
+     * @param {String} char
+     * 
+     * @return {Object} See description above.  
+     */
     #get_edge(root, char) {
         return this.#nodes[this.#get_edge_index(root, char)];
     }
 
+    /**
+     * Returns the <i>active_node</i>'s child node as an object, with edge substring starting with the <i>active_edge</i>. 
+     * 
+     * If no such node exists then the root node is returned, signalling an error.   
+     * 
+     * @method
+     * @private
+     * 
+     * @return {Object} See description above.  
+     */
     #get_act_edge_node() {
         return this.#get_edge(this.#active_node, this.#active_edge);
     }
 
+    /**
+     * 
+     * 
+     * @param {number} to ID of edge (Should always be the deepest node connected by the edge) 
+     */
     #update_edge_label(to) {
         var node = this.#nodes[to];
 
@@ -76,7 +144,76 @@ class Tree {
         });
     }
 
-    #add_edge(root, char, to) {
+    #find_min_y(root) {
+        var max_node = root;
+        var max_y = nodes.get(root)['y'];
+
+        while(true) {
+
+            if(this.#nodes[max_node].edge.size == 1)
+                return max_y;
+
+            this.#nodes[max_node].edge.forEach((value) => {
+                if(value != max_node) {
+                    max_y = Math.max(nodes.get(value)['y'], max_y);
+                    max_node = value;
+                }
+            });
+        }        
+    }
+
+    #move_parent(root, by_y, by_x = 0) {
+        nodes.update({id: root, y: nodes.get(root)['y'] - by_y, x: nodes.get(root)['x'] + by_x});
+
+        this.#nodes[root].edge.forEach((value) => {
+            if(value != root)
+                this.#move_parent(value, by_y, by_x);
+        });
+    }
+
+    #move_branch(inserted_node) {
+
+        while(inserted_node != 0) {
+            var parent = this.#nodes[inserted_node].parent;
+
+            this.#nodes[parent].edge.forEach((value) => {
+                if(value != parent && value != inserted_node) {
+                    if(nodes.get(value)['y'] < nodes.get(inserted_node)['y'])
+                        this.#move_parent(value, y_node_sepereation);
+                    else if(nodes.get(value)['y'] > nodes.get(inserted_node)['y'])
+                        this.#move_parent(value, -y_node_sepereation);
+                }
+            });
+
+            inserted_node = parent;
+        }
+
+    }
+
+    #add_edge(root, char, to, active_edge_node = null) {
+        var offset = 0;
+
+        var x = 0;
+        var y = 0;
+        
+        if(this.#nodes[root].edge.size > 1)
+            offset = y_node_sepereation;
+
+        if(active_edge_node == null) {
+            x = nodes.get(root)['x'] + x_node_seperation,
+            y = this.#find_min_y(root) + offset
+        }
+        else {
+            x = nodes.get(active_edge_node)['x'];
+            y = nodes.get(active_edge_node)['y'];
+        }
+        
+        nodes.update({
+            id: to, 
+            y: y,
+            x: x
+        });
+
         edges.add({
             id: to,
             from: root,
@@ -85,6 +222,19 @@ class Tree {
         });
 
         this.#nodes[root].edge.set(char, to);
+
+        if(active_edge_node == null) {
+            this.#nodes[root].edge.forEach((value) => {
+                if(value != root && value != to)
+                    this.#move_parent(value, y_node_sepereation);
+            });
+
+            //console.log("root: " + String(root) + ", parent: " + String(this.#nodes[root].parent))
+            this.#move_branch(root);
+        }
+
+        //console.log("to: " + String(to) + ", root: " + String(root));
+
     }
 
     #update_levels(root) {
@@ -101,12 +251,18 @@ class Tree {
 
     #reroot_edge(new_root, char, to) {
         this.#nodes[new_root].edge.set(char, to);
+        this.#nodes[to].parent = new_root;
+
+        var delta_x = (nodes.get(new_root)['x'] + x_node_seperation) - nodes.get(to)['x'];
+        var delta_y = nodes.get(new_root)['y'] - nodes.get(to)['y'];
+
+        this.#move_parent(to, delta_y, delta_x);
 
         edges.update({
             id: to, from: new_root
         });
 
-        this.#update_levels(new_root);
+        //this.#update_levels(new_root);
     }
 
     #change_active_node(to) {
@@ -205,14 +361,17 @@ class Tree {
                     multi: true, 
                     bold: {color: "orange"}
                 },
+                smooth: { enabled:false},
                 color: default_node_colour
             },
+            /*
             layout: {
                 hierarchical: {
                   direction: "LR",
                 },
             },
-            physics: true
+            */
+            physics: false
         }
 
         if(network != null)
@@ -279,7 +438,8 @@ class Tree {
 
         this.#change_active_edge(this.#string[this.#step - this.#active_len]);
 
-        var split_i = this.#get_act_edge_node().start + this.#active_len;
+        var split_i = this.#get_act_edge_node().start;
+        split_i += Math.min(this.#active_len, this.#edge_length(this.#active_node, this.#active_edge));
 
         if(this.#active_len > 0) {
             var node_i = this.#get_edge_index(this.#active_node, this.#active_edge);
@@ -322,6 +482,7 @@ class Tree {
 
                 //Gets rid of delimeter while climbing
                 this.#update_edge_label(this.#active_node);
+                this.#render_split_edge();
 
                 return this.#step;
             }
@@ -341,8 +502,10 @@ class Tree {
                     this.#get_act_edge_node().start += this.#active_len;
                     this.#update_edge_label(next_node);
 
+                    debugger;
+
+                    this.#add_edge(this.#active_node, this.#active_edge, split_node, next_node);
                     this.#reroot_edge(split_node, split_c, next_node);
-                    this.#add_edge(this.#active_node, this.#active_edge, split_node);
 
                     this.#update_edge_label(split_node);
                     this.#add_slink(split_node);
