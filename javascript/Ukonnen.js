@@ -139,10 +139,10 @@ class Tree {
      * @param {number} to ID of edge (Should always be the deepest node connected by the edge) 
 
      */
-    #update_edge_label(to) {
+    #update_edge_label(to, update_array) {
         var node = this.#nodes[to];
 
-        edges.update({
+        update_array.push({
             id: to,
             label: this.#string.substring(node.start, Math.min(node.end, this.#step + 1))
         });
@@ -595,8 +595,12 @@ class Tree {
     #render_split_edge() {
         if(this.#active_len > 0) {
 
-            this.#update_edge_label(this.#get_edge_index(this.#active_node, this.#active_edge));
+            var update_array = [];
+            this.#update_edge_label(this.#get_edge_index(this.#active_node, this.#active_edge), update_array);
+            edges.update(update_array);
+
             this.#change_active_edge(this.#string[this.#step - this.#active_len]);
+
 
             //Gets the index of where the split could occur
             var split_i = this.#get_act_edge_node().start;
@@ -642,10 +646,14 @@ class Tree {
             this.#next_step = false;
 
             this.#string += character;
+
+            var update_array = [];
             for(var i = 0; i < this.#nodes.length; i++)
                 //If is leaf
                 if(this.#nodes[i].edge.size == 1)
-                    this.#update_edge_label(i);
+                    this.#update_edge_label(i, update_array);
+
+            edges.update(update_array);
         }
 
         this.#change_active_edge(this.#string[this.#step - this.#active_len]);
@@ -657,7 +665,9 @@ class Tree {
             this.#change_active_len(this.#active_len - edge_len);
 
             //Updates edge
-            this.#update_edge_label(this.#active_node);
+            var update_array = [];
+            this.#update_edge_label(this.#active_node, update_array);
+            edges.update(update_array);
             
         } else {
 
@@ -680,8 +690,10 @@ class Tree {
                     this.#add_edge(this.#active_node, this.#active_edge, split_node, next_node);
                     this.#reroot_edge(split_node, split_c, next_node);
                     
-                    this.#update_edge_label(next_node);
-                    this.#update_edge_label(split_node);
+                    var update_array = [];
+                    this.#update_edge_label(next_node, update_array);
+                    this.#update_edge_label(split_node, update_array);
+                    edges.update(update_array);
 
                     this.#single_insert(split_node, character);
                 }
