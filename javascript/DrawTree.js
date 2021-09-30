@@ -6,12 +6,24 @@ var string_index = 0;
 var nodes = new vis.DataSet();
 var edges = new vis.DataSet();
 
-
 function init() {
     var input = document.getElementById("input_text");
 
     console.log(input.value);
 }
+
+function check_overflow_boxes() {
+    container = document.getElementById("info__char-boxes");
+
+
+    if(container.clientHeight < container.scrollHeight)
+        container.style.borderColor = "#808080FF";
+    else
+        container.style.borderColor = "#80808000";
+    
+}
+
+window.onresize = check_overflow_boxes;
 
 function load_string() {
     container = document.getElementById("info__char-boxes");
@@ -40,6 +52,8 @@ function load_string() {
 
         container.appendChild(outer_box);
     }
+
+    check_overflow_boxes();
     
     delete tree;
     tree = new Tree();
