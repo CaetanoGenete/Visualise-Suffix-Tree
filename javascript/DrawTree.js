@@ -45,7 +45,7 @@ function load_string() {
     tree = new Tree();
 }
 
-function add_character() {
+function add_character() {    
     if(string_index < full_string.length) {
         next_char = full_string[string_index];
 
