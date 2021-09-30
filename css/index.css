@@ -216,12 +216,17 @@
     box-sizing: border-box;
     pointer-events: auto;
 
-
     display: block;
     box-sizing: border-box;
 
-    margin-left: 300px;
-    max-height: 120px;
+    border: 1px solid #80808000;
+    border-radius: 5px;
+    padding-top: 20px;
+
+    transition: border-color 1s;
+
+    margin-left: 320px;
+    max-height: 150px;
 
     overflow-y: auto;
 }
@@ -229,6 +234,7 @@
 /* width */
 #info__char-boxes::-webkit-scrollbar {
     width: 10px;
+    margin: 3px;
   }
   
   /* Track */
