@@ -27,11 +27,6 @@ var node = function(start, end = Number.POSITIVE_INFINITY) {
 
 class Tree {
 
-    next_iteration = null;
-    prev_iteration = null;
-
-    max_iterations = 0;
-
     move_parent(node_id, by_x, by_y, current_iteration, nodes) {
         //Todo: make deque
         let queue = [node_id];
@@ -167,10 +162,6 @@ class Tree {
         });
     }
 
-    //Temporary, will find better solution later
-    first_insert = true;  
-    links_count = 0;
-
     constructor(string) {
         //Root will always be 0
         const root_id = 0;
@@ -217,6 +208,10 @@ class Tree {
         nodes[max_node_id++] = new node(string.length);
         //Add terminator
         string += "\0";
+
+        //Temporary, will find better solution later
+        this.first_insert = true;  
+        this.links_count = 0;
 
         for(let step = 0; step < string.length - 1; step++) {
             let step_char = string[step];
