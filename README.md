@@ -32,7 +32,7 @@ var node = function(start, end = Number.POSITIVE_INFINITY) {
     //avoid unecessary data in nodes
     this.slink = 0;
 
-    //All edges by default will map t
+    //All edges by default will map to 0 (meaning no edge)
     this.edge = new Array(ALPHABET_SIZE).fill(0);
 }
 ```
@@ -79,8 +79,8 @@ var build_suffix_tree = function(string) {
             let next_node = nodes[active_node].edge[active_edge];
             let edge_len = nodes[next_node].end - nodes[next_node].start;
             
-            //Note: If next_node is root, thereby implying no active_edge char points of active_node,
-            //then this will pass
+            //Note: If next_node is root, thereby implying no active_edge leaves active_node,
+            //then this will pass (because infinity is always larger)
             //
             //If true, need to walk down tree to next node
             if(edge_len <= active_len) {
@@ -125,7 +125,7 @@ var build_suffix_tree = function(string) {
                     active_node = nodes[active_node].slink;
                 }
                 else {
-                    //character is alread on edge
+                    //character is already on the active_edge
                     active_len++;
                     
                     //Optimisation 3
