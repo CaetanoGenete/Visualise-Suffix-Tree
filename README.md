@@ -1,37 +1,28 @@
-## Welcome to GitHub Pages
+# Visualising Ukkonen's algorithm
 
-You can use the [editor on GitHub](https://github.com/CaetanoGenete/Visualise-Suffix-Tree/edit/main/README.md) to maintain and preview the content for your website in Markdown files.
+<h2>Inspiration</h2>
+This is a project inspired by Brenden's excellent website with the same goal (see <a href = https://brenden.github.io/ukkonen-animation/>https://brenden.github.io/ukkonen-animation/</a>). The scope of this project is improve upon and address certain limitations of the aformentioned tool, also providing a different outlook.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+<h2>Motive</h2>
+There are many reasons behind the creation of this tool, from more practical reasons to simply for educational purposes, of course any programming tends to be instructive regardless of whether it is a reinvention. The main reasons behind this website are to:
+<br></br>
+<ul>
+  <li>Allow for indefinately sized strings</li>
+  <li>Provide control over the display of the tree</li>
+  <li>Correctly display suffix links</li>
+</ul>
 
-### Markdown
+The second motivation for this website is to provide source code for an efficient implementation of this algorithm.
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+<h2>The algorithm</h2>
+Ukkonen's algorithm is a O(n) time complexity algorithm for building a suffix tree. 
+<h2>Dependencies</h2>
+Many thanks to:
+<ul>
+  <li>Visjs (<a href = "https://visjs.org/">https://visjs.org/</a>)</li>
+  For providing the functionality used to render the graph.
+  <li>Collectionsjs (<a href = "https://www.collectionsjs.com/">https://www.collectionsjs.com/</a>)</li>
+  For its deque data structure.
+</ul>
 
-```markdown
-Syntax highlighted code block
 
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/CaetanoGenete/Visualise-Suffix-Tree/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
