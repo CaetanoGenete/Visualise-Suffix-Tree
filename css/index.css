@@ -509,6 +509,8 @@
     }
 
     #control-panel__variables {
+        padding: 0px;
+
         transition: transform 0s ease;
 
         -webkit-transform: translateY(0); /* Ch <36, Saf 5.1+, iOS < 9.2, An =<4.4.4 */
