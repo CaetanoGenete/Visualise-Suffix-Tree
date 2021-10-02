@@ -7,16 +7,8 @@ window.onload = function() {
     text.addEventListener("keypress", event => {
 
         //Do not allow spaces
-        if(event.key == " ") {
+        if(event.key == " " || event.key == "|")
             event.preventDefault();
-        }
-
-        //Change Uppercase character to lowercase
-        if(event.key.toLowerCase() != event.key) {
-            event.preventDefault();
-
-            text.value += event.key.toLowerCase();
-        }
     });
 
 }

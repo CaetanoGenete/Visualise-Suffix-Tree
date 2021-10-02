@@ -103,23 +103,17 @@
 }
 
 #info__control-panel {
+    position: relative;
     float:left;
 
     /*Dimensions*/
     width: 300px;
-    height: auto;
-    
-    border: 1px solid darkgray;
+    height: 300px;
+
     border-radius: 10px;
 
-    background-color: #f7f1f7;
-
-    -webkit-box-shadow: 0 8px 10px -6px black;
-    -moz-box-shadow: 0 8px 10px -6px black;
-         box-shadow: 0 8px 10px -6px black;
-
     pointer-events: auto;
-
+    overflow: hidden;
 }
 
 #info__control-panel h3 {
@@ -192,6 +186,10 @@
     border-radius: 50%;
     width: 30px;
     height: 30px;
+
+    background-color: gray;
+
+    transition: background-color 1s;
 }
 
 #control-panel__header button div {
@@ -208,7 +206,26 @@
 }
 
 #control-panel__variables {
+    box-sizing: border-box;
+
+    position:absolute;
+    z-index: -1;
+
     padding: 20px;
+    height: 210px;
+    width: 300px;
+
+    border: 1px solid darkgray;
+    border-radius: 0px 0px 10px 10px;
+
+    background-color: #f7f1f7;
+
+    -webkit-box-shadow: 0 8px 10px -6px black;
+    -moz-box-shadow: 0 8px 10px -6px black;
+         box-shadow: 0 8px 10px -6px black;
+
+    transition: transform 3s ease;
+    transform: translateY(-200px);
 }
 
 /*Char boxes*/
