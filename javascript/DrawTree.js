@@ -106,18 +106,16 @@ function load_string() {
         network.destroy();
     else {
         //First time:
+        let info_panel = null;
 
-        console.log(window.screen.width);
-
-        if(window.matchMedia("screen and (max-width: 800px)").matches) {
-            let info_panel = document.getElementById("info");
-            info_panel.style.transform = "translateY(0px)";
+        if(window.matchMedia("screen and (max-width: 800px)").matches)
+            info_panel = document.getElementById("info");
+        else
+            info_panel = document.getElementById("control-panel__variables");
         
-        } else {
-            let info_panel = document.getElementById("control-panel__variables");
-            info_panel.style.transform = "translateY(0px)";
-
-        }
+        info_panel.style.transform = "translateY(0px)";
+        info_panel.style.MozTransform = "translateY(0px)";
+        info_panel.style.msTransform = "translateY(0px)";
     }
 
     activate_button(1);
