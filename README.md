@@ -21,7 +21,7 @@ Many thanks to:
 <ul>
   <li>Visjs (<a href = "https://visjs.org/">https://visjs.org/</a>)</li>
   For providing the functionality used to render the graph.
-  <li>Collectionsjs (<a href = "https://www.collectionsjs.com/">https://www.collectionsjs.com/</a></li>)
+  <li>Collectionsjs (<a href = "https://www.collectionsjs.com/">https://www.collectionsjs.com/</a>)</li>
   For its deque data structure.
 </ul>
 
