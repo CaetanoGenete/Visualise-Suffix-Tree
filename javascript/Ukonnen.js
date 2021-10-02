@@ -188,7 +188,7 @@ class Tree {
             edges: [],
 
             active_node: active_node,
-            active_edge: undefined,
+            active_edge: "none",
             active_len: active_len,
 
             remainder: remainder,
