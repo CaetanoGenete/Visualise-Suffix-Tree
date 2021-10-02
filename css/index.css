@@ -1,23 +1,36 @@
 .button {
     transition: box-shadow .3s, transform .2s;
-    box-shadow: 0 0px 0px 0px black;
+
+    -webkit-box-shadow: 0 0px 0px 0px black;
+       -moz-box-shadow: 0 0px 0px 0px black;
+            box-shadow: 0 0px 0px 0px black;
 }
 
 .button:hover {
-    transform: translateY(-1px);
+    -webkit-transform: translateY(-1px); /* Ch <36, Saf 5.1+, iOS < 9.2, An =<4.4.4 */
+        -ms-transform: translateY(-1px); /* IE 9 */
+            transform: translateY(-1px); /* IE 10, Fx 16+, Op 12.1+ */
 
+    /*According to http://shouldiprefix.com/ it's not needed but I don't trust it */
     -webkit-box-shadow: 0 6px 10px -7px black;
        -moz-box-shadow: 0 6px 10px -7px black;
             box-shadow: 0 6px 10px -7px black;
 }
 
 .button:active {
-    transform: translateY(1px);
-    box-shadow: 0 0px 0px 0px black;
+    -webkit-transform: translateY(1px); /* Ch <36, Saf 5.1+, iOS < 9.2, An =<4.4.4 */
+        -ms-transform: translateY(1px); /* IE 9 */
+            transform: translateY(1px); /* IE 10, Fx 16+, Op 12.1+ */
+
+    /*According to http://shouldiprefix.com/ it's not needed but I don't trust it */
+    -webkit-box-shadow: 0 0px 0px 0px black;
+       -moz-box-shadow: 0 0px 0px 0px black;
+            box-shadow: 0 0px 0px 0px black;
 }
 
 /*Header styling*/
 #header {
+    /*Positioning*/
     position: fixed;
     z-index: 1;
     top: 0px;
@@ -33,27 +46,38 @@
     background-color:#8a2be2;
     color: var(--off-white);
 
+    /*According to http://shouldiprefix.com/ it's not needed but I don't trust it */
 	-webkit-box-shadow: 0 8px 10px -6px black;
 	   -moz-box-shadow: 0 8px 10px -6px black;
 	        box-shadow: 0 8px 10px -6px black;
 }
 
 #header h1 {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
     display: flex;
+
     justify-content: center;
     align-items: center;
 }
 
 #header__input-div {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
     display: flex;
+
+    margin: auto;
+    width: 400px;
+
     justify-content: center;
     align-items: center;
 }
 
 #header__input-div input[type = text], button {
     box-sizing: border-box;
-    height: auto;
-    width: 300px;
+    
     padding: 5px;
 
     border: 2px solid rgb(67, 12, 131);
@@ -68,13 +92,24 @@
 #header__input-div input[type = text] {
     padding-left: 10px;
 
-    box-shadow: none;
+    -webkit-box-flex: 1;     /* OLD - iOS 6-, Safari 3.1-6 */
+    -moz-box-flex: 1;         /* OLD - Firefox 19- */
+    -webkit-flex: 1;          /* Chrome */
+    -ms-flex: 1;             /* IE 10 */
+    flex: 1;
 
-    transition: box-shadow .5s;
+    -webkit-transition: box-shadow .5s;
+       -moz-transition: box-shadow .5s;
+         -o-transition: box-shadow .5s;
+        -ms-transition: box-shadow .5s;
+            transition: box-shadow .5s;
 }
 
 #header__input-div input[type = text]:focus {
-    box-shadow: 0 0 10px -1px darkgray;
+    -webkit-box-shadow: 0 0 10px -1px darkgray;
+       -moz-box-shadow: 0 0 10px -1px darkgray;
+            box-shadow: 0 0 10px -1px darkgray;
+
     outline: none;
 }
 
@@ -134,8 +169,10 @@
 }
 
 .gradient-underline::after {
-    background: #333;
-    background: linear-gradient(to right, transparent 0%, #333 50%, transparent 100%);  
+    /* Cross platform why ;( */
+    background: linear-gradient(to right, transparent 0%, #333 50%, transparent 100%); 
+    background: -moz-linear-gradient(to right, transparent 0%, #333 50%, transparent 100%); 
+
     content: "";
     position: absolute;
     bottom: 0;
@@ -145,21 +182,36 @@
  }
 
 .variables__table {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
     display: flex;
 }
 
-.active-point__column {
-    flex: 30%;
-    margin-left: 0;
+.active-point__left-column {
+    -webkit-box-flex: 70%;     /* OLD - iOS 6-, Safari 3.1-6 */
+    -moz-box-flex: 70%;         /* OLD - Firefox 19- */
+    -webkit-flex: 70%;          /* Chrome */
+    -ms-flex: 70%;             /* IE 10 */
+    flex: 70%;    
+    
+    margin-left: 10px;
 }
 
-.active-point__column:first-child {
-    flex: 70%;
-    margin-left: 10px;
-} 
+.active-point__right-column {
+    -webkit-box-flex: 30%;     /* OLD - iOS 6-, Safari 3.1-6 */
+    -moz-box-flex: 30%;         /* OLD - Firefox 19- */
+    -webkit-flex: 30%;          /* Chrome */
+    -ms-flex: 30%;             /* IE 10 */
+    flex: 30%;        
+}
 
 #control-panel__header {
-    display: flex;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;    
+
     justify-content: center;
     align-items: center;
 
@@ -193,12 +245,16 @@
 }
 
 #control-panel__header button div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;  
+    
+    justify-content: center;
+    align-items: center;
 
-  width: 100%;
-  height: 100%;
+    width: 100%;
+    height: 100%;
 }
 
 #control-panel__header h2 {
@@ -213,7 +269,7 @@
 
     padding: 20px;
     height: 210px;
-    width: 300px;
+    width: 100%;
 
     border: 1px solid darkgray;
     border-radius: 0px 0px 10px 10px;
@@ -221,11 +277,29 @@
     background-color: #f7f1f7;
 
     -webkit-box-shadow: 0 8px 10px -6px black;
-    -moz-box-shadow: 0 8px 10px -6px black;
-         box-shadow: 0 8px 10px -6px black;
+       -moz-box-shadow: 0 8px 10px -6px black;
+            box-shadow: 0 8px 10px -6px black;
 
     transition: transform 3s ease;
-    transform: translateY(-200px);
+
+    -webkit-transform: translateY(-200px); /* Ch <36, Saf 5.1+, iOS < 9.2, An =<4.4.4 */
+        -ms-transform: translateY(-200px); /* IE 9 */
+            transform: translateY(-200px); /* IE 10, Fx 16+, Op 12.1+ */
+            
+}
+
+#control-panel__flex_basis {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;  
+
+    flex-wrap: wrap;
+
+}
+
+.control-panel__column {
+    flex: 1 0 100%
 }
 
 /*Char boxes*/
@@ -233,7 +307,6 @@
     box-sizing: border-box;
     pointer-events: auto;
 
-    display: block;
     box-sizing: border-box;
 
     border: 1px solid #80808000;
@@ -273,7 +346,11 @@
 
 .char-box {
 
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
     display: flex;
+
     float:left;
 
     align-items: center;
@@ -289,23 +366,27 @@
 }
 
 .char-box div {
-    background: #f7f1f7;
-    text-align: center;
-
+    
     height: 40px;
     width: 0px;
     line-height: 40px;
-
+    
     border-radius: 10px;
     
+    text-align: center;
     overflow: hidden;
     
-    animation: show_box ease-in-out 0.5s;
-    animation-fill-mode: forwards;
+    background: #f7f1f7;
+
+    -webkit-animation: show_box ease-in-out 0.5s;
+            animation: show_box ease-in-out 0.5s;
+
+    -webkit-animation-fill-mode: forwards;
+            animation-fill-mode: forwards;
 
     -webkit-box-shadow: 0 8px 10px -6px black;
-    -moz-box-shadow: 0 8px 10px -6px black;
-         box-shadow: 0 8px 10px -6px black;
+       -moz-box-shadow: 0 8px 10px -6px black;
+            box-shadow: 0 8px 10px -6px black;
 
 }
 
@@ -325,7 +406,39 @@
     }
 }
 
+@-webkit-keyframes delete_box {
+    0% {
+        width: 100%;
+        border-radius: 10px;
+        border-left: 1px solid whitesmoke;
+        border-right: 1px solid whitesmoke;
+    }
+    100% {
+        width: 0%;
+        border-radius: 0px;
+        border-left: 2px solid gray;
+        border-right: 2px solid gray;
+    }
+
+}
+
 @keyframes delete_box {
+    0% {
+        width: 100%;
+        border-radius: 10px;
+        border-left: 1px solid whitesmoke;
+        border-right: 1px solid whitesmoke;
+    }
+    100% {
+        width: 0%;
+        border-radius: 0px;
+        border-left: 2px solid gray;
+        border-right: 2px solid gray;
+    }
+
+}
+
+@-webkit-keyframes delete_box {
     0% {
         width: 100%;
         border-radius: 10px;
@@ -345,4 +458,98 @@
 #suffix-tree {
     width: 100vw;
     height: 100vh;
+}
+
+/*RESPONSIVE:*/
+
+@media screen and (max-width: 800px) {
+
+    #header h1 {
+        text-align: center;
+        font-size: 4vw;
+    }
+
+    #header__input-div {
+        width: 95%;
+    }
+
+    #info {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+
+        top: unset;
+        bottom: 0px;
+
+        margin: 0;
+        padding: 0;
+
+        -webkit-box-direction: column-reverse;
+        -ms-flexbox-direction: column-reverse;
+        -webkit-flex-direction: column-reverse;
+        flex-direction: column-reverse;
+
+        transition: transform 3s ease;
+
+        -webkit-transform: translateY(139px); /* Ch <36, Saf 5.1+, iOS < 9.2, An =<4.4.4 */
+            -ms-transform: translateY(139px); /* IE 9 */
+                transform: translateY(139px); /* IE 10, Fx 16+, Op 12.1+ */
+    }
+
+    #info__control-panel {
+        width: 100%;
+        height: 180px;
+        
+        border-radius: 0px;
+    }
+
+    #control-panel__header {
+        border-radius: 0px;
+    }
+
+    #control-panel__variables {
+        padding: 0px;
+
+        transition: transform 0s ease;
+
+        -webkit-transform: translateY(0); /* Ch <36, Saf 5.1+, iOS < 9.2, An =<4.4.4 */
+            -ms-transform: translateY(0); /* IE 9 */
+                transform: translateY(0); /* IE 10, Fx 16+, Op 12.1+ */
+                
+    }
+
+    .control-panel__column {
+        -webkit-box-flex: 50%;     /* OLD - iOS 6-, Safari 3.1-6 */
+        -moz-box-flex: 50%;         /* OLD - Firefox 19- */
+        -webkit-flex: 50%;          /* Chrome */
+        -ms-flex: 50%;             /* IE 10 */
+        flex: 50%;    
+    }
+
+    #info__char-boxes {
+        margin: 0;
+
+        width: 100%;
+        height: 100px;
+
+        white-space: nowrap; /*Prevents Wrapping*/
+
+        overflow: unset;
+        overflow-x: auto;
+
+        padding-right: 30px;
+    }
+
+    .char-box {
+        display: inline-block;        
+
+        float: none;
+    }
+
+    #info__char-boxes::-webkit-scrollbar {
+        height: 10px;
+        margin: 3px;
+      }
+
 }

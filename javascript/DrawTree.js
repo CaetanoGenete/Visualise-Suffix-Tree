@@ -14,8 +14,9 @@ nodes = new vis.DataSet();
 edges = new vis.DataSet();
 
 function check_overflow_boxes() {
-    container = document.getElementById("info__char-boxes");
 
+
+    container = document.getElementById("info__char-boxes");
 
     if(container.clientHeight < container.scrollHeight)
         container.style.borderColor = "#808080FF";
@@ -105,11 +106,18 @@ function load_string() {
         network.destroy();
     else {
         //First time:
-        let info_panel = document.getElementById("control-panel__variables");
+        let info_panel = null;
+
+        if(window.matchMedia("screen and (max-width: 800px)").matches)
+            info_panel = document.getElementById("info");
+        else
+            info_panel = document.getElementById("control-panel__variables");
+        
         info_panel.style.transform = "translateY(0px)";
+        info_panel.style.MozTransform = "translateY(0px)";
+        info_panel.style.msTransform = "translateY(0px)";
     }
 
-    
     activate_button(1);
     de_activate_button(0);
 

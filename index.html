@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="UTF-8"/>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Visualisation of Ukkonen's algorithm</title> 
 
         <!--css files-->
-        <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet'/>
         <link rel="stylesheet" href="css/global.css"/>
         <link rel="stylesheet" href="css/index.css"/>
 
@@ -33,28 +34,34 @@
                     <button onclick = "next_iteration();"><div>&#62</div></button>
                 </div>
                 <div id = "control-panel__variables">
-                    <h3 class = "gradient-underline">Active point</h3>
-                    <div class = "variables__table">
-                        <div class = "active-point__column">
-                            <h4>Active node: </h4>
-                            <h4>Active edge: </h4>
-                            <h4>Active length: </h4>
+                    <div id = "control-panel__flex_basis">
+                        <div class = "control-panel__column">
+                            <h3 class = "gradient-underline">Active point</h3>
+                            <div class = "variables__table">
+                                <div class = "active-point__left-column">
+                                    <h4>Active node: </h4>
+                                    <h4>Active edge: </h4>
+                                    <h4>Active length: </h4>
+                                </div>
+                                <div class = "active-point__right-column" id = "active-point-data">
+                                    <h4 style = "color: red;">0</h4>
+                                    <h4>none</h4>
+                                    <h4 style = "color: orange;">0</h4>
+                                </div>
+                            </div>
                         </div>
-                        <div class = "active-point__column" id = "active-point-data">
-                            <h4 style = "color: red;">0</h4>
-                            <h4>none</h4>
-                            <h4 style = "color: orange;">0</h4>
-                        </div>
-                    </div>
-                    <h3 class = "gradient-underline">Position</h3>
-                    <div class = "variables__table">
-                        <div class = "active-point__column">
-                            <h4>Remainder: </h4>
-                            <h4>Step: </h4>
-                        </div>
-                        <div class = "active-point__column" id = "variables-data">
-                            <h4 style = "color: greenyellow;">0</h4>
-                            <h4 style = "color: green;">0</h4>
+                        <div class = "control-panel__column">
+                            <h3 class = "gradient-underline">Position</h3>
+                            <div class = "variables__table">
+                                <div class = "active-point__left-column">
+                                    <h4>Remainder: </h4>
+                                    <h4>Step: </h4>
+                                </div>
+                                <div class = "active-point__right-column" id = "variables-data">
+                                    <h4 style = "color: greenyellow;">0</h4>
+                                    <h4 style = "color: green;">0</h4>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
