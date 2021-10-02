@@ -27,12 +27,12 @@ var node = function(start, end = Number.POSITIVE_INFINITY) {
 
 class Tree {
 
-    #next_iteration = null;
-    #prev_iteration = null;
+    next_iteration = null;
+    prev_iteration = null;
 
-    #max_iterations = 0;
+    max_iterations = 0;
 
-    #move_parent(node_id, by_x, by_y, current_iteration, nodes) {
+    move_parent(node_id, by_x, by_y, current_iteration, nodes) {
         //Todo: make deque
         let queue = [node_id];
 
@@ -48,7 +48,7 @@ class Tree {
         }
     }
 
-    #move_branch(inserted_node_id, current_iteration, nodes) {
+    move_branch(inserted_node_id, current_iteration, nodes) {
 
         while(inserted_node_id != 0) {
             let parent_id = nodes[inserted_node_id].parent;
@@ -58,9 +58,9 @@ class Tree {
 
                 if(next_node_id != 0) {
                     if(current_iteration.nodes[next_node_id].y < current_iteration.nodes[inserted_node_id].y)
-                        this.#move_parent(next_node_id, 0, -y_node_sepereation, current_iteration, nodes);
+                        this.move_parent(next_node_id, 0, -y_node_sepereation, current_iteration, nodes);
                     else if(current_iteration.nodes[next_node_id].y > current_iteration.nodes[inserted_node_id].y)
-                        this.#move_parent(next_node_id, 0, y_node_sepereation, current_iteration, nodes);
+                        this.move_parent(next_node_id, 0, y_node_sepereation, current_iteration, nodes);
                 }
             }
 
@@ -68,7 +68,7 @@ class Tree {
         }
     }
 
-    #add_slink(from, to, nodes, prev_iter_data, iteration_data, maximum_nodes) {
+    add_slink(from, to, nodes, prev_iter_data, iteration_data, maximum_nodes) {
         nodes[from].slink = to;
         //Always make sure root points to itself
         nodes[0].slink = 0;
@@ -76,10 +76,10 @@ class Tree {
 
         //GRAPHICAL CHANGE DATA///////////////////////////
         if(from != 0) {
-            prev_iter_data.remove_edges.push(maximum_nodes + this.#links_count);
+            prev_iter_data.remove_edges.push(maximum_nodes + this.links_count);
 
             iteration_data.edges.push({
-                id: maximum_nodes + this.#links_count++,
+                id: maximum_nodes + this.links_count++,
                 dashes: true,
                 color: "gray",
                 arrows: "to",
@@ -98,11 +98,11 @@ class Tree {
         return to;
     }
 
-    #correct_edge_label(edge_id, nodes, string, step) {
+    correct_edge_label(edge_id, nodes, string, step) {
         return string.substring(nodes[edge_id].start, Math.min(step + 1, nodes[edge_id].end));
     }
 
-    #find_min_y(node_id, current_iteration, nodes) {
+    find_min_y(node_id, current_iteration, nodes) {
         let min_node_id = node_id;
         let min_y = current_iteration.nodes[min_node_id].y;
         
@@ -115,7 +115,7 @@ class Tree {
             let min_node = nodes[min_node_id];
 
             //Hack: Extra check needed
-            if((min_node.end == Number.POSITIVE_INFINITY && min_node_id != 0) || this.#first_insert)
+            if((min_node.end == Number.POSITIVE_INFINITY && min_node_id != 0) || this.first_insert)
                 return min_y;
 
             for(let char = 0; char < alphabet_size; char++) {
@@ -129,7 +129,7 @@ class Tree {
         }        
     }
 
-    #update_displays(prev_iter_data, iteration_data, nodes, active_node, active_edge, active_len, remainder, step, string, max_node_id) {
+    update_displays(prev_iter_data, iteration_data, nodes, active_node, active_edge, active_len, remainder, step, string, max_node_id) {
 
         iteration_data.active_node = active_node;
         iteration_data.active_edge = active_edge;
@@ -144,7 +144,7 @@ class Tree {
         if(active_len > 0) {
 
             let next_node = nodes[active_node].edge[active_edge.charCodeAt(0)];
-            let label = this.#correct_edge_label(next_node, nodes, string, step);
+            let label = this.correct_edge_label(next_node, nodes, string, step);
             
             prev_iter_data.edges.push({
                 id: next_node,
@@ -160,16 +160,16 @@ class Tree {
         }
     }
 
-    #refresh_edge_len(next_node, iteration_data, nodes, string, step) {
+    refresh_edge_len(next_node, iteration_data, nodes, string, step) {
         iteration_data.edges.push({
             id: next_node,
-            label: this.#correct_edge_label(next_node, nodes, string, step)
+            label: this.correct_edge_label(next_node, nodes, string, step)
         });
     }
 
     //Temporary, will find better solution later
-    #first_insert = true;  
-    #links_count = 0;
+    first_insert = true;  
+    links_count = 0;
 
     constructor(string) {
         //Root will always be 0
@@ -190,9 +190,9 @@ class Tree {
         let nodes = new Array(maximum_nodes);
 
         let iteration = 0;
-        this.#next_iteration = new Array(maximum_nodes);
+        this.next_iteration = new Array(maximum_nodes);
         //First iteration, simply add root node
-        this.#next_iteration[iteration] = {
+        this.next_iteration[iteration] = {
             nodes: [{id: root_id, label: String(root_id), x: 0, y: 0}],
             edges: [],
 
@@ -204,8 +204,8 @@ class Tree {
             step: 0,
         }
 
-        this.#prev_iteration = new Array(maximum_nodes);
-        this.#prev_iteration[iteration++] = {
+        this.prev_iteration = new Array(maximum_nodes);
+        this.prev_iteration[iteration++] = {
             edges: [],
 
             remove_nodes: [root_id],
@@ -229,7 +229,7 @@ class Tree {
                 //GRAPHICAL CHANGE DATA///////////////////////////
 
                 //Setting data
-                this.#next_iteration[iteration] = {
+                this.next_iteration[iteration] = {
                     //At most two nodes can be added per iteration and #edges = #nodes - 1
                     nodes: new Array(max_node_id + 2),
                     edges: [],
@@ -243,19 +243,19 @@ class Tree {
 
                 }
 
-                this.#prev_iteration[iteration] = {
+                this.prev_iteration[iteration] = {
                     edges: [],
 
                     remove_nodes: [],
                     remove_edges: [],
                 }
 
-                let iteration_data = this.#next_iteration[iteration];
-                let prev_iter_data = this.#prev_iteration[iteration];
+                let iteration_data = this.next_iteration[iteration];
+                let prev_iter_data = this.prev_iteration[iteration];
 
                 //Copy previous iteration data as nodes are never removed going forward in iterations
                 for(let i = 0; i < max_node_id; i++) {
-                    iteration_data.nodes[i] = Object.assign({}, this.#next_iteration[iteration - 1].nodes[i]);
+                    iteration_data.nodes[i] = Object.assign({}, this.next_iteration[iteration - 1].nodes[i]);
                 }
 
                 //Initialise potential last nodes
@@ -275,7 +275,7 @@ class Tree {
                 //then this will pass assuming string.length * 2 < Number.POSTIVE_INFINITY (which for 
                 //practical purposes should always be true)
                 if(edge_len <= active_len) {
-                    this.#refresh_edge_len(next_node, iteration_data, nodes, string, step);
+                    this.refresh_edge_len(next_node, iteration_data, nodes, string, step);
 
                     active_node = next_node;
                     active_len -= edge_len;
@@ -290,14 +290,14 @@ class Tree {
                             if(nodes[node_id].end == Number.POSITIVE_INFINITY) {
                                 prev_iter_data.edges.push({
                                     id: node_id,
-                                    label: this.#correct_edge_label(node_id, nodes, string, step - 1),
+                                    label: this.correct_edge_label(node_id, nodes, string, step - 1),
                                     from: nodes[node_id].parent,
                                     to: node_id
                                 });
 
                                 iteration_data.edges.push({
                                     id: node_id,
-                                    label: this.#correct_edge_label(node_id, nodes, string, step),
+                                    label: this.correct_edge_label(node_id, nodes, string, step),
                                     from: nodes[node_id].parent,
                                     to: node_id
                                 });
@@ -334,7 +334,7 @@ class Tree {
                             iteration_data.nodes[split_node].x = iteration_data.nodes[next_node].x;
                             iteration_data.nodes[split_node].y = iteration_data.nodes[next_node].y;
 
-                            this.#move_parent(next_node, x_node_seperation, 0, iteration_data, nodes);
+                            this.move_parent(next_node, x_node_seperation, 0, iteration_data, nodes);
 
                             //Delete edge created below when reverse iterating
                             prev_iter_data.remove_nodes.push(split_node);
@@ -343,7 +343,7 @@ class Tree {
                             //Edge has been created
                             iteration_data.edges.push({
                                 id: split_node, 
-                                label: this.#correct_edge_label(split_node, nodes, string, step),
+                                label: this.correct_edge_label(split_node, nodes, string, step),
                                 from: active_node, to: split_node
                             });
                             nodes[split_node].parent = active_node;
@@ -358,7 +358,7 @@ class Tree {
                             //Rerooting edge
                             iteration_data.edges.push({
                                 id: next_node, 
-                                label: this.#correct_edge_label(next_node, nodes, string, step),
+                                label: this.correct_edge_label(next_node, nodes, string, step),
                                 from: split_node, to: next_node
                             });
                             nodes[next_node].parent = split_node;
@@ -380,7 +380,7 @@ class Tree {
 
                         //New node moved into position:
                         iteration_data.nodes[max_node_id].x = iteration_data.nodes[split_node].x + x_node_seperation;
-                        iteration_data.nodes[max_node_id].y = this.#find_min_y(split_node, iteration_data, nodes) + y_node_sepereation;
+                        iteration_data.nodes[max_node_id].y = this.find_min_y(split_node, iteration_data, nodes) + y_node_sepereation;
 
                         //Adding edge
                         iteration_data.edges.push({id: max_node_id, label: step_char, from: split_node, to: max_node_id});
@@ -393,20 +393,20 @@ class Tree {
 
                         //GRAPHICAL CHANGE DATA///////////////////////////
                         //Hack: 
-                        if(this.#first_insert) {
+                        if(this.first_insert) {
                             iteration_data.nodes[max_node_id - 1].y -= y_node_sepereation;
 
-                            this.#first_insert = false;
+                            this.first_insert = false;
                         }
                         nodes[max_node_id - 1].parent = split_node;
 
-                        this.#move_branch(max_node_id - 1, iteration_data, nodes);
+                        this.move_branch(max_node_id - 1, iteration_data, nodes);
 
-                        this.#refresh_edge_len(nodes[active_node].edge[active_edge.charCodeAt(0)], iteration_data, nodes, string, step);
+                        this.refresh_edge_len(nodes[active_node].edge[active_edge.charCodeAt(0)], iteration_data, nodes, string, step);
                         //////////////////////////////////////////////////
 
                         //Rule 2:
-                        next_link = this.#add_slink(next_link, split_node, nodes, prev_iter_data, iteration_data, maximum_nodes);
+                        next_link = this.add_slink(next_link, split_node, nodes, prev_iter_data, iteration_data, maximum_nodes);
 
                         //Rule 3: Move down slink, if it doensn't exist then it will just go to root because default
                         //slink is root
@@ -416,10 +416,10 @@ class Tree {
                         active_len++;  
 
                         //GRAPHICAL CHANGE DATA///////////////////////////
-                        this.#update_displays(prev_iter_data, iteration_data, nodes, active_node, active_edge, active_len, remainder, step, string, max_node_id); 
+                        this.update_displays(prev_iter_data, iteration_data, nodes, active_node, active_edge, active_len, remainder, step, string, max_node_id); 
                         ///////////////////////////////////////////////////////
                         
-                        next_link = this.#add_slink(next_link, active_node, nodes, prev_iter_data, iteration_data, maximum_nodes);
+                        next_link = this.add_slink(next_link, active_node, nodes, prev_iter_data, iteration_data, maximum_nodes);
 
                         break; 
                      }
@@ -428,25 +428,25 @@ class Tree {
                 //GRAPHICAL CHANGE DATA///////////////////////////
                 //Not necessary: Only for display purposes
                 active_edge = string[step - active_len];
-                this.#update_displays(prev_iter_data, iteration_data, nodes, active_node, active_edge, active_len, remainder, step, string, max_node_id);
+                this.update_displays(prev_iter_data, iteration_data, nodes, active_node, active_edge, active_len, remainder, step, string, max_node_id);
 
                 //////////////////////////////////////////////////
             }
         }
 
 
-        this.#max_iterations = iteration;
+        this.max_iterations = iteration;
     }
 
     get_next_iteration(iteration) {
-        return this.#next_iteration[iteration];
+        return this.next_iteration[iteration];
     }
 
     get_prev_iteration(iteration) {
-        return this.#prev_iteration[iteration];
+        return this.prev_iteration[iteration];
     }
 
     get_max_iterations() {
-        return this.#max_iterations;
+        return this.max_iterations;
     }
 }
