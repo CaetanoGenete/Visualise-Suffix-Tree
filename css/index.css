@@ -83,7 +83,6 @@
     border: 0.5px solid #8226d8;
     border-radius: 20px 8px 8px 20px;
 
-    background-color: var(--off-white);
     font-size: large;
     font-weight: bold;
     color: #333;
@@ -98,6 +97,7 @@
     -ms-flex: 1;             /* IE 10 */
     flex: 1;
 
+    background-color: var(--off-white);
     transition: box-shadow .5s;
 }
 
@@ -114,6 +114,8 @@
     width: auto;
 
     margin-left: 2px;
+
+    background-color: grey;
 }
 
 /*Info box styling*/

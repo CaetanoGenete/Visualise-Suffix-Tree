@@ -68,12 +68,12 @@ function load_string() {
     container = document.getElementById("info__char-boxes");
     text_box = document.getElementById("input_text");
 
+    if(text_box.value.length == 0)
+        return;
+
     while(container.firstChild) {
         container.removeChild(container.firstChild);
     }
-
-    if(text_box.value.length == 0)
-        return;
 
     //Reset string and index
     full_string = text_box.value;
