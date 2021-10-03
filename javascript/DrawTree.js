@@ -175,6 +175,7 @@ function next_iteration() {
 
         variables.children[0].innerHTML = data.remainder;
         variables.children[1].innerHTML = data.step;
+        variables.children[2].innerHTML = curr_iteration + "/" + (tree.get_max_iterations() - 1);
 
         if(curr_iteration == 0) {
             boxes[0].children[0].style.backgroundColor = curr_step_box_colour;
@@ -229,7 +230,7 @@ function prev_iteration() {
 
         variables.children[0].innerHTML = data.remainder;
         variables.children[1].innerHTML = data.step;
-
+        variables.children[2].innerHTML = curr_iteration + "/" + (tree.get_max_iterations() - 1);
 
         if(last_step + 1 < full_string.length)
             boxes[last_step + 1].children[0].style.backgroundColor = default_box_colour;
