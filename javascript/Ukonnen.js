@@ -271,8 +271,11 @@ class Tree {
         this.next_iteration = new Array(maximum_nodes);
         //First iteration, simply add root node
         this.next_iteration[iteration] = {
-            nodes: [{id: ROOT_ID, label: String(ROOT_ID), x: 0, y: 0}],
+            nodes: [{id: ROOT_ID, label: String(ROOT_ID), x: 0, y: 0, value: undefined}],
             edges: [],
+
+            inserted_parent: null,
+            split: null,
 
             active_node: active_node,
             active_edge: "none",
@@ -313,6 +316,9 @@ class Tree {
                     nodes: new Array(max_node_id + 2),
                     edges: [],
 
+                    inserted_parent: null,
+                    split: null,
+
                     active_node: 0,
                     active_edge: null,
                     active_len: 0,
@@ -339,7 +345,7 @@ class Tree {
 
                 //Initialise potential last nodes
                 for(let i = max_node_id; i < max_node_id + 2; i++)
-                    iteration_data.nodes[i] = {id: i, label: String(i), x: 0, y: 0};
+                    iteration_data.nodes[i] = {id: i, label: String(i), x: 0, y: 0, value: undefined};
                 
                 iteration++;
 
@@ -410,7 +416,8 @@ class Tree {
                             nodes[active_node].edge[active_edge.charCodeAt(0)] = split_node;
 
                             //GRAPHICAL CHANGE DATA///////////////////////////
-                
+                            iteration_data.split = active_node;
+
                             //Move node into position:
                             iteration_data.nodes[split_node].x = iteration_data.nodes[next_node].x;
                             iteration_data.nodes[split_node].y = iteration_data.nodes[next_node].y;
@@ -454,6 +461,7 @@ class Tree {
                         nodes[max_node_id] = new node(step);
 
                         //GRAPHICAL CHANGE DATA///////////////////////////
+                        iteration_data.inserted_parent = split_node;
 
                         //Remove node and edge created below
                         prev_iter_data.remove_nodes.push(max_node_id);
