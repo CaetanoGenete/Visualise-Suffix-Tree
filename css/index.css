@@ -1,5 +1,5 @@
 .button {
-    transition: box-shadow .3s, transform .2s;
+    transition: box-shadow .3s, transform .2s, background-color 1s;
 
     -webkit-box-shadow: 0 0px 0px 0px black;
        -moz-box-shadow: 0 0px 0px 0px black;
@@ -80,7 +80,7 @@
     
     padding: 5px;
 
-    border: 2px solid rgb(67, 12, 131);
+    border: 0.5px solid #8226d8;
     border-radius: 20px 8px 8px 20px;
 
     background-color: var(--off-white);
@@ -98,11 +98,7 @@
     -ms-flex: 1;             /* IE 10 */
     flex: 1;
 
-    -webkit-transition: box-shadow .5s;
-       -moz-transition: box-shadow .5s;
-         -o-transition: box-shadow .5s;
-        -ms-transition: box-shadow .5s;
-            transition: box-shadow .5s;
+    transition: box-shadow .5s;
 }
 
 #header__input-div input[type = text]:focus {
@@ -143,12 +139,16 @@
 
     /*Dimensions*/
     width: 300px;
-    height: 300px;
+    height: 250px;
 
     border-radius: 10px;
 
     pointer-events: auto;
     overflow: hidden;
+
+    -webkit-box-shadow: 0 8px 10px -6px black;
+    -moz-box-shadow: 0 8px 10px -6px black;
+         box-shadow: 0 8px 10px -6px black;
 }
 
 #info__control-panel h3 {
@@ -240,8 +240,6 @@
     height: 30px;
 
     background-color: gray;
-
-    transition: background-color 1s;
 }
 
 #control-panel__header button div {
@@ -271,14 +269,9 @@
     height: 210px;
     width: 100%;
 
-    border: 1px solid darkgray;
     border-radius: 0px 0px 10px 10px;
 
     background-color: #f7f1f7;
-
-    -webkit-box-shadow: 0 8px 10px -6px black;
-       -moz-box-shadow: 0 8px 10px -6px black;
-            box-shadow: 0 8px 10px -6px black;
 
     transition: transform 3s ease;
 
