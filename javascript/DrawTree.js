@@ -72,6 +72,9 @@ function load_string() {
         container.removeChild(container.firstChild);
     }
 
+    if(text_box.value.length == 0)
+        return;
+
     //Reset string and index
     full_string = text_box.value;
     curr_iteration = -1;
