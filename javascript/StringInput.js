@@ -5,6 +5,12 @@ window.onload = function() {
     let text = document.getElementById("input_text");
     let build_button = document.getElementById("header__input-div").getElementsByTagName("button")[0];
 
+    text.addEventListener("keydown", (event) => {
+
+        if(event.key == "Enter")
+            build_button.click();
+    });
+
     text.addEventListener("input", (event) => {
 
         event.target.value = event.target.value.replace(/\s|\|/g, '');
