@@ -6,26 +6,47 @@ var last_active_node = 0;
 var last_remainder = 0;
 var last_step = 0;
 
-var move_direction = 0;
-
 network = null;
 
-nodes = new vis.DataSet();
-edges = new vis.DataSet();
+var nodes = new vis.DataSet();
+var edges = new vis.DataSet();
 
 function check_overflow_boxes() {
-
-
     container = document.getElementById("info__char-boxes");
 
     if(container.clientHeight < container.scrollHeight)
         container.style.borderColor = "#808080FF";
     else
         container.style.borderColor = "#80808000";
-    
 }
-
 window.onresize = check_overflow_boxes;
+
+//Ensures the display is correctly displayed at all times
+function ensure_display_visible() {
+    let variables = document.getElementById("control-panel__variables");
+    let info_panel = document.getElementById("info");
+    
+    //If network exists than want the panel to be displayed
+    if(network != null) {
+        variables.style.transform = "translateY(0px)";
+        variables.style.MozTransform = "translateY(0px)";
+        variables.style.msTransform = "translateY(0px)";
+
+        info_panel.style.transform = "translateY(0px)";
+        info_panel.style.MozTransform = "translateY(0px)";
+        info_panel.style.msTransform = "translateY(0px)";
+    }
+    //Otherwise go back to closed
+    else {
+        variables.style.transform = null;
+        variables.style.MozTransform = null;
+        variables.style.msTransform = null;
+
+        info_panel.style.transform = null;
+        info_panel.style.MozTransform = null;
+        info_panel.style.msTransform = null;
+    }
+}
 
 function activate_button(button_index) {
     let header = document.getElementById("control-panel__header")
@@ -103,20 +124,7 @@ function load_string() {
 
     //Destroy network if one already exists
     if(network != null)
-        network.destroy();
-    else {
-        //First time:
-        let info_panel = null;
-
-        if(window.matchMedia("screen and (max-width: 800px)").matches)
-            info_panel = document.getElementById("info");
-        else
-            info_panel = document.getElementById("control-panel__variables");
-        
-        info_panel.style.transform = "translateY(0px)";
-        info_panel.style.MozTransform = "translateY(0px)";
-        info_panel.style.msTransform = "translateY(0px)";
-    }
+        network.destroy();        
 
     activate_button(1);
     de_activate_button(0);
@@ -131,6 +139,7 @@ function load_string() {
     }
 
     network = new vis.Network(container, data, options);
+    ensure_display_visible();
 
     last_active_node = 0;
     last_remainder = 0;
@@ -257,3 +266,4 @@ function prev_iteration() {
     if(curr_iteration == 0) 
         de_activate_button(0);
 }
+

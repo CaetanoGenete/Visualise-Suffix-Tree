@@ -4,7 +4,7 @@ window.onload = function() {
 
     var text = document.getElementById("input_text");
 
-    text.addEventListener("keypress", event => {
+    text.addEventListener("keydown", event => {
 
         //Do not allow spaces
         if(event.key == " " || event.key == "|")
