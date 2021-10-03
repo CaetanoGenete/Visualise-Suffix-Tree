@@ -6,10 +6,15 @@ var last_active_node = 0;
 var last_remainder = 0;
 var last_step = 0;
 
-network = null;
-
 var nodes = new vis.DataSet();
 var edges = new vis.DataSet();
+
+network = null;
+
+const anim_dur = 200;
+const anim_frames = 15;
+
+var curr_animation_frame = 0;
 
 function check_overflow_boxes() {
     container = document.getElementById("info__char-boxes");
@@ -63,11 +68,6 @@ function de_activate_button(button_index) {
     buttons[button_index].classList.remove("button");
     buttons[button_index].style.backgroundColor = "grey";
 }
-
-const anim_dur = 200;
-const anim_frames = 18;
-
-var curr_animation_frame = 0;
 
 function load_string() {
     //Avoid potential issues
@@ -399,7 +399,7 @@ function prev_iteration() {
                     curr_animation_frame++;
 
                     //Check if animation needs to end
-                    if(curr_animation_frame > anim_frames) {
+                    if(curr_animation_frame >= anim_frames) {
                         //Ensures nodes are placed in correct position and everything is removed
                         edges.update(remove_data.edges);
                         edges.remove(remove_data.remove_edges);
