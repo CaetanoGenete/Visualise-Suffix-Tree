@@ -145,10 +145,6 @@
 
     pointer-events: auto;
     overflow: hidden;
-
-    -webkit-box-shadow: 0 8px 10px -6px black;
-    -moz-box-shadow: 0 8px 10px -6px black;
-         box-shadow: 0 8px 10px -6px black;
 }
 
 #info__control-panel h3 {
@@ -272,6 +268,10 @@
     border-radius: 0px 0px 10px 10px;
 
     background-color: #f7f1f7;
+
+    -webkit-box-shadow: 0 8px 10px -6px black;
+    -moz-box-shadow: 0 8px 10px -6px black;
+         box-shadow: 0 8px 10px -6px black;
 
     transition: transform 3s ease;
 
