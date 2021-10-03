@@ -13,7 +13,7 @@ window.onload = function() {
 
     text.addEventListener("input", (event) => {
 
-        event.target.value = event.target.value.replace(/\s|\|/g, '');
+        event.target.value = event.target.value.replace(/\s|\||[^a-zA-Z0-9!@#\$%\^\&*\)\(+="._-`]/g, '');
 
         if(event.target.value.length > 0) {
             build_button.classList.add("button");
