@@ -485,9 +485,9 @@
 
         transition: transform 3s ease;
 
-        -webkit-transform: translateY(139px); /* Ch <36, Saf 5.1+, iOS < 9.2, An =<4.4.4 */
-            -ms-transform: translateY(139px); /* IE 9 */
-                transform: translateY(139px); /* IE 10, Fx 16+, Op 12.1+ */
+        -webkit-transform: translateY(110px); /* Ch <36, Saf 5.1+, iOS < 9.2, An =<4.4.4 */
+            -ms-transform: translateY(110px); /* IE 9 */
+                transform: translateY(110px); /* IE 10, Fx 16+, Op 12.1+ */
     }
 
     #info__control-panel {
@@ -521,9 +521,10 @@
     }
 
     #info__char-boxes {
+        /*reset previous margin*/
         margin: 0;
 
-        width: 100%;
+        width: auto;
         height: 100px;
 
         white-space: nowrap; /*Prevents Wrapping*/
