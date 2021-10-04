@@ -14,7 +14,7 @@ There are many reasons behind the creation of this tool, from more practical rea
 The second motivation for this website is to provide source code for an efficient implementation of this algorithm.
 
 <h2>The algorithm</h2>
-Ukkonen's algorithm is a O(n) time complexity algorithm for building a suffix tree. 
+Ukkonen's algorithm is a O(n) time complexity, online, algorithm for building a suffix tree. The process involves extending the suffix tree for the substring that doesn't contain the last character, performing this recursive provides a complete suffix tree.
 
 ```javascript
 //Number of characters defined by the ASCII standard (not extended)
